@@ -3,18 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
-{
+{//I am notoriously bad at commenting but I am going to try my best
+    private Transform trans;
     private Rigidbody2D rb;
     private bool IsTouchingGround = false;
 
     public float MovementSpeed = 100.0f;
     public float MaxSpeed = 16.0f;
     public float JumpForce = 6.5f;
+    
+    [HideInInspector]
+    public bool facingLeft { get; private set; }
+
 
     // Start is called before the first frame update
     void Start()
     {
+        facingLeft = false; //Start off facing right
         rb = this.GetComponent<Rigidbody2D>();
+        trans = GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -35,6 +42,11 @@ public class PlayerController : MonoBehaviour
         // GetAxisRaw checks for WASD and arrow key input; horizontal refers to AD/Left and Right
         if(Input.GetAxisRaw("Horizontal") == 1)  // 1 is positive x direction
         {
+
+            if (facingLeft != false)
+                Flip();
+            //Tell controller player is moving right
+            facingLeft = false;
             // Adding force to our rigid body in the positive x direction
             rb.AddForce(new Vector2(MovementSpeed, 0));
             // Clamp our movement speed to MaxSpeed variable
@@ -45,6 +57,10 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetAxisRaw("Horizontal") == -1)  // negative x direction
         {
+            if (facingLeft != true)
+                Flip();
+            //Tell controller player is moving left
+            facingLeft = true;
             // Force in the negative x direction
             rb.AddForce(new Vector2(-MovementSpeed, 0));
             // clamping again
@@ -87,5 +103,10 @@ public class PlayerController : MonoBehaviour
         //{
         //    Debug.Log("top");
         //}
+    }
+
+    void Flip()
+    {
+        trans.localScale = new Vector3(trans.localScale.x *-1, trans.localScale.y, trans.localScale.z);
     }
 }
