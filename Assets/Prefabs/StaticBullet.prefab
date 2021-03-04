@@ -11,11 +11,9 @@ GameObject:
   - component: {fileID: 3365358648576283310}
   - component: {fileID: 3591431466820898053}
   - component: {fileID: 72562039196594}
-  - component: {fileID: -9096513978622683432}
-  - component: {fileID: 3020757060195482961}
   - component: {fileID: -6530599802004015228}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: StaticBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,31 +107,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &-9096513978622683432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3416856401577757807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0003ceb0bb4b58049bddd5abb7167f6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration: 3
---- !u!114 &3020757060195482961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3416856401577757807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f1d84c64fa661241b9a9f73f23de4b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &-6530599802004015228
 Rigidbody2D:
   serializedVersion: 4
