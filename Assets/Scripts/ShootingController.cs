@@ -39,8 +39,6 @@ public class ShootingController : MonoBehaviour
     {
         GameObject localBullet = Instantiate(bullet, transform.position, transform.rotation);
         localBullet.GetComponent<BulletController>().setDirection = player.facingLeft;
-
-
     }
 
     void ShootBullet(Vector3 mousePos)
