@@ -6,7 +6,7 @@ using UnityEngine;
 public class ShootingController : MonoBehaviour
 {
 
-    public GameObject bullet, staticbullet;
+    public GameObject bullet;
     Vector3 worldPosition;
     Transform playerLocation;
     PlayerController player;
@@ -19,7 +19,7 @@ public class ShootingController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         //Directionial Firing
         if (Input.GetButtonDown("Fire1"))
@@ -45,7 +45,7 @@ public class ShootingController : MonoBehaviour
     {
 
            
-        //Right know it shoots from the blue square on the player
+        //Right now it shoots from the blue square on the player
         GameObject localBullet = Instantiate(bullet, transform.position, transform.rotation);
         localBullet.GetComponent<BulletController>().directionalShooting();
         Vector3 diff = mousePos - localBullet.transform.position;
