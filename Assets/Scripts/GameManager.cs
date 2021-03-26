@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
         /*Instantiate(dummyTarget, new Vector3(Random.Range(-8f, 8f), Random.Range(-3f, 3f), 0), Quaternion.identity);
         Instantiate(dummyTarget, new Vector3(Random.Range(-8f, 8f), Random.Range(-3f, 3f), 0), Quaternion.identity);
         Instantiate(dummyTarget, new Vector3(Random.Range(-8f, 8f), Random.Range(-3f, 3f), 0), Quaternion.identity);*/
+
+        Instantiate(PlayerPF, PlayerPF.transform.position, Quaternion.identity);
     }
 
     // Update is called once per frame
