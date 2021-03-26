@@ -4,24 +4,30 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    /*
     public GameObject dummyTarget;
     
     private int maxDummyTargets = 5;
     private int numberTargets = 3;
     private float tickTimer;
+    */
+
+    public GameObject PlayerSpawner;    // Position for spawning our player
+    public GameObject PlayerPF;         // Player object to spawn
 
     // Start is called before the first frame update
     void Start()
     {
         // Spawn three targets randomly in our test scene
+        /*Instantiate(dummyTarget, new Vector3(Random.Range(-8f, 8f), Random.Range(-3f, 3f), 0), Quaternion.identity);
         Instantiate(dummyTarget, new Vector3(Random.Range(-8f, 8f), Random.Range(-3f, 3f), 0), Quaternion.identity);
-        Instantiate(dummyTarget, new Vector3(Random.Range(-8f, 8f), Random.Range(-3f, 3f), 0), Quaternion.identity);
-        Instantiate(dummyTarget, new Vector3(Random.Range(-8f, 8f), Random.Range(-3f, 3f), 0), Quaternion.identity);
+        Instantiate(dummyTarget, new Vector3(Random.Range(-8f, 8f), Random.Range(-3f, 3f), 0), Quaternion.identity);*/
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
         // Increment tick timer by elapsed time
         tickTimer += Time.deltaTime;
         if (tickTimer >= 2.0f)  // perform this after 2 seconds:
@@ -32,5 +38,6 @@ public class GameManager : MonoBehaviour
             }
             tickTimer -= 2.0f;  // reset timer
         }
+        */
     }
 }
