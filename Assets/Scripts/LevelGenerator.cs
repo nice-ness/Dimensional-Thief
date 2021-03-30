@@ -11,6 +11,14 @@ public class LevelGenerator : MonoBehaviour
     // 2 = Room Left Top Right
     // 3 = Room left Top Right Bottom
 
+    public enum ROOM
+    {
+        LR,
+        LRB,
+        LTR,
+        LTRB
+    };
+
     private int direction;              // for which direction to start spawning rooms
     public float moveAmount;            // how much to move the origin for the next room
 
@@ -52,6 +60,7 @@ public class LevelGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Spawning a room roughly every 1 second
         if (spawnTick <= 0.0f && stopGen == false)
         {
             MoveGeneration();
@@ -64,7 +73,7 @@ public class LevelGenerator : MonoBehaviour
 
     private void MoveGeneration()
     {
-
+        // Once a cell is generated on the right most wall, stop.
         if (transform.position.x == maxX)
         {
             stopGen = true;
@@ -74,7 +83,9 @@ public class LevelGenerator : MonoBehaviour
         // 1 & 2 -- Move up
         // 3 & 4 -- Move down
         // 5 -- Move right
-        if (direction == 1 || direction == 2)  // Move Up
+
+        // Moving up
+        if (direction == 1 || direction == 2)
         {
             if (transform.position.y < maxY)  // Are we still allowed to move up?
             {
@@ -83,11 +94,13 @@ public class LevelGenerator : MonoBehaviour
                 transform.position = newPosition;
 
                 int rand = Random.Range(2, 4);
+
+                // Spawn the room 
                 Instantiate(rooms[rand], transform.position, Quaternion.identity);
 
                 direction = Random.Range(1, 6);  // roll again
 
-                // trying to go back from which we came cannot happen
+                // Prevent generation from going back down
                 if (direction == 3)
                 {
                     direction = 1;  // go back up
@@ -113,6 +126,7 @@ public class LevelGenerator : MonoBehaviour
                 transform.position = newPosition;
 
                 int rand = Random.Range(3, rooms.Length);
+                // Spawn the room
                 Instantiate(rooms[rand], transform.position, Quaternion.identity);
 
                 // This will prevent the generation from moving back up
@@ -144,6 +158,7 @@ public class LevelGenerator : MonoBehaviour
 
                 // Include all rooms with a left and right opening
                 int rand = Random.Range(0, rooms.Length);
+                // Spawn the room
                 Instantiate(rooms[rand], transform.position, Quaternion.identity);
 
                 direction = Random.Range(1, 6);
@@ -158,6 +173,6 @@ public class LevelGenerator : MonoBehaviour
         // Spawn a room randomly from our choices, choose a new random direction
         int RandomRoom = Random.Range(0, rooms.Length);
         //Instantiate(rooms[RandomRoom], transform.position, Quaternion.identity);
-        Debug.Log(direction);
+        //Debug.Log(direction);
     }
 }
