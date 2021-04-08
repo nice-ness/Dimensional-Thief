@@ -11,6 +11,7 @@ public class LevelGenerator : MonoBehaviour
     // 2 = Room Left Top Right
     // 3 = Room left Top Right Bottom
 
+    // enum representing the room types
     public enum ROOM
     {
         LR,
@@ -33,6 +34,7 @@ public class LevelGenerator : MonoBehaviour
     public float maxY;                  // how far up we are allowed to spawn rooms
     private bool stopGen = false;       // continue generating rooms?
 
+    // Game objects represnting our maximum/minimum directions
     public GameObject g_maxX;
     public GameObject g_minY;
     public GameObject g_maxY;
@@ -46,11 +48,18 @@ public class LevelGenerator : MonoBehaviour
         // Make the starting position 
         transform.position = StartingPosition.position;
 
-        // Spawn a random at our starting positon with no rotation
-        Instantiate(rooms[RandomRoom], transform.position, Quaternion.identity);
-
         // Choose a random direction to start spawning our dungeon (Up(1,2), right(5), down(3,4))
         direction = Random.Range(1, 6);
+
+        int coin = Random.Range(0, 2);
+
+        // Spawn a random at our starting positon with no rotation
+        //Instantiate(rooms[RandomRoom], transform.position, Quaternion.identity);
+
+        if (coin == 0)
+            RoomTypeHelper(rooms[(int)ROOM.LRB], transform.position);
+        else
+            RoomTypeHelper(rooms[(int)ROOM.LTRB], transform.position);
 
         maxY = g_maxY.transform.position.y;
         minY = g_minY.transform.position.y;
@@ -96,35 +105,40 @@ public class LevelGenerator : MonoBehaviour
                 int rand = Random.Range(2, 4);
 
                 // Spawn the room 
-                Instantiate(rooms[rand], transform.position, Quaternion.identity);
+                //Instantiate(rooms[rand], transform.position, Quaternion.identity);
 
-                direction = Random.Range(1, 6);  // roll again
+                // Determine our new direction before spawning a new room
+                direction = Random.Range(1, 6);
 
                 // Prevent generation from going back down
                 if (direction == 3)
-                {
                     direction = 1;  // go back up
-                }
                 else if (direction == 4)
-                {
                     direction = 5;  // go right
+
+                if (direction == 1 || direction == 2)
+                {
+
                 }
             }
             else if (transform.position.y == maxY)
             {
                 // Go right if we reach the top
-                Debug.Log("Reached top, going right");
+                //Debug.Log("Reached top, going right");
                 direction = 5;
             }
         }
         else if (direction == 3 || direction == 4)  // Move down
         {
-            if (transform.position.y > minY)  // Are we still allowed to move down?
+            // Are we still allowed to move down?
+            if (transform.position.y > minY)  
             {
                 //Debug.Log("Successful spawn down");
+                // the newest position to spawn the room
                 Vector2 newPosition = new Vector2(transform.position.x, transform.position.y - moveAmount);
                 transform.position = newPosition;
 
+                // Grabbing a random room to create
                 int rand = Random.Range(3, rooms.Length);
                 // Spawn the room
                 Instantiate(rooms[rand], transform.position, Quaternion.identity);
@@ -144,7 +158,7 @@ public class LevelGenerator : MonoBehaviour
             }
             else if (transform.position.y == minY)
             {  // If we can't move down, go right
-                Debug.Log("Reached bottom, going right");
+                //Debug.Log("Reached bottom, going right");
                 direction = 5;
             }
         }
@@ -174,5 +188,12 @@ public class LevelGenerator : MonoBehaviour
         int RandomRoom = Random.Range(0, rooms.Length);
         //Instantiate(rooms[RandomRoom], transform.position, Quaternion.identity);
         //Debug.Log(direction);
+    }
+
+    void RoomTypeHelper(GameObject rt, Vector2 pos)
+    {
+        // Quaternion is always assumed zero
+        Quaternion qi = Quaternion.identity;
+        Instantiate(rt, pos, qi);
     }
 }
