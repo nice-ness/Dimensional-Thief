@@ -11,6 +11,10 @@ public class ShootingController : MonoBehaviour
     Transform playerLocation;
     PlayerController player;
 
+    [SerializeField]
+    [Tooltip("BulletStats is an scriptable object. An easy way to change all the entities damage type while editing.")]
+    BulletStats bulletStats;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +52,7 @@ public class ShootingController : MonoBehaviour
         //Right now it shoots from the blue square on the player
         GameObject localBullet = Instantiate(bullet, transform.position, transform.rotation);
         localBullet.GetComponent<BulletController>().directionalShooting();
+        localBullet.GetComponent<BulletController>().setData(bulletStats);
         Vector3 diff = mousePos - localBullet.transform.position;
         diff.Normalize();
 

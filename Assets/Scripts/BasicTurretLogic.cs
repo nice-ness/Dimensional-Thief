@@ -9,6 +9,10 @@ public class BasicTurretLogic : MonoBehaviour
     public GameObject bullet;
     private GameObject player;
 
+    [SerializeField]
+    [Tooltip("BulletStats is an scriptable object. An easy way to change all the entities damage type while editing.")]
+    BulletStats bulletStats;
+
 
     [SerializeField]
     float timeElapsed;
@@ -23,9 +27,13 @@ public class BasicTurretLogic : MonoBehaviour
     {
         if (player != null)
         {
-
+            if (player.GetComponent<HealthController>().Alive == false)
+                player = null;
+            else
+            {
             timeElapsed += Time.fixedDeltaTime;
             LookAt2D(player.transform.position);
+            }
             //transform.LookAt(player.GetComponent<Transform>(),Vector3.right);
         }
         else
@@ -56,6 +64,7 @@ public class BasicTurretLogic : MonoBehaviour
         GameObject localBullet = Instantiate(bullet, transform.position, transform.rotation);
         localBullet.GetComponent<BulletController>().directionalShooting();
         localBullet.GetComponent<BulletController>().Speed /= 2;
+        localBullet.GetComponent<BulletController>().setData(bulletStats);
         localBullet.transform.rotation = Quaternion.Euler(0f, 0f, rot_z);
         localBullet.GetComponent<SpriteRenderer>().color = Color.red;
 
@@ -63,7 +72,7 @@ public class BasicTurretLogic : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && collision.GetComponent<HealthController>().Alive == true)
             player = collision.gameObject;
     }
 
