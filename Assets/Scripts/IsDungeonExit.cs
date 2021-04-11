@@ -14,7 +14,7 @@ public class IsDungeonExit : MonoBehaviour
     public void ToggleExit()
     {
         e.SetActive(true);
-        Debug.Log("Exit Toggled");
+        //Debug.Log("Exit Toggled");
     }
 
 }
