@@ -4,24 +4,27 @@ using UnityEngine;
 
 public class WinLogic : MonoBehaviour
 {
-    public Canvas canvas;
+    public GameObject canvas;
+    
     // Start is called before the first frame update
     void Awake()
     {
-        canvas.enabled = false;
+        canvas = Instantiate(canvas);
+        canvas.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
-            canvas.enabled = true;
+            Debug.Log("Testing");
+            canvas.SetActive(true);
         }
             
     }
 
     public void HideWinHUD()
     {
-        canvas.enabled = false;
+        canvas.SetActive(true);
     }
 }

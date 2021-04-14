@@ -5,16 +5,20 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerController))]
 public class PlayerHealthController : HealthController
 {
-
-
-    public TextMeshProUGUI hpUI;
+    private const string deadPlayerTag = "Dead";
+    private const string playerTag = "Player";
+    public TextMeshProUGUI hpUI, deathUI;
     private PlayerController playerController;
-
+    private ShootingController shootingController;
+    
+    //.5s invulnerability when hit?
     // Start is called before the first frame update
     void Awake()
     {
         playerController = GetComponent<PlayerController>();
+        shootingController = GetComponentInChildren<ShootingController>();
         alive = true;
+        tag = playerTag;
     }
 
     public void updateUI()
@@ -27,7 +31,7 @@ public class PlayerHealthController : HealthController
         health -= dmg;
         updateUI();//update UI
         if (health <= 0)
-        {
+        {//.5s Invulerability?
             health = 0;
             death();
         }
@@ -52,6 +56,8 @@ public class PlayerHealthController : HealthController
             health = 1;
             //Call invincibility
             playerController.enabled = true;//Renable movement
+            shootingController.enabled = true;
+            tag = playerTag;
             updateUI();//update UI
         }
     }
@@ -64,6 +70,8 @@ public class PlayerHealthController : HealthController
             health = reviveHealth;
             //Call invincibility
             playerController.enabled = true;//Renable movement
+            shootingController.enabled = true;
+            tag = playerTag;
             updateUI();//update UI
         }
     }
@@ -72,7 +80,8 @@ public class PlayerHealthController : HealthController
     {
         alive = false;
         playerController.enabled = false;//Stop movement
-        //.5s invulnerability?
+        shootingController.enabled = false;
+        tag = deadPlayerTag;
         //Play death animation
         //show death hud
         updateUI();
