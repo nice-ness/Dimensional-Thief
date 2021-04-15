@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Dead
+  - ScoreController
   layers:
   - Default
   - TransparentFX
