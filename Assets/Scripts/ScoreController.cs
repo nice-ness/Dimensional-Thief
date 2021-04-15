@@ -10,13 +10,14 @@ public class ScoreController : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log(this.GetType());
         score = 0;
     }
 
     public virtual void updateScore(int scoreToPutIn)
     {
         score += scoreToPutIn;
-        Debug.Log("Score: " + score);
+        //Debug.Log("Score: " + score);
         updateUI();
     }
 
