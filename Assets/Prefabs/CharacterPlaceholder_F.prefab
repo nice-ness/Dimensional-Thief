@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 3264513951341021471}
   - component: {fileID: 3264513951341021468}
   - component: {fileID: 3264513951341021469}
+  - component: {fileID: 5457765940825284845}
   m_Layer: 0
   m_Name: CharacterPlaceholder_F
   m_TagString: Player
@@ -179,9 +180,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2bcce9b7f039bc46be7131813b8e7a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 90
-  MaxSpeed: 14
-  JumpForce: 8
+  MovementSpeed: 100
+  MaxSpeed: 10
+  JumpForce: 13
 --- !u!70 &3264513951341021471
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -213,7 +214,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -232,4 +233,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 3416856401577757807, guid: b79e4ac1465fb834a9eea6e19197da77, type: 3}
-  bulletStats: {fileID: 0}
+  bulletStats: {fileID: 11400000, guid: d3b9894d36c48b1478606e66a37b98bc, type: 2}
+--- !u!114 &5457765940825284845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3264513951341021459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e54542cf18e9c514188642dca3629d6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 3
+  maxHealth: 3
+  hpText: {fileID: 0}

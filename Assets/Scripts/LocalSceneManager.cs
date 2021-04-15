@@ -25,4 +25,8 @@ public class LocalSceneManager : MonoBehaviour
     {
         SceneManager.LoadScene(str);
     }
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ShootingController : MonoBehaviour
 {
-
+    //Needs shooting delay
     public GameObject bullet;
     Vector3 worldPosition;
     Transform playerLocation;

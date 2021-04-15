@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WinLogic : MonoBehaviour
 {
-    public GameObject canvas;
+    public GameObject canvas;//win canvas
     
     // Start is called before the first frame update
     void Awake()
@@ -17,7 +17,6 @@ public class WinLogic : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            Debug.Log("Testing");
             canvas.SetActive(true);
         }
             

@@ -7,7 +7,10 @@ public class PlayerHealthController : HealthController
 {
     private const string deadPlayerTag = "Dead";
     private const string playerTag = "Player";
-    public TextMeshProUGUI hpUI, deathUI;
+
+    //Will be moved later shouldn't be attached to this scripted
+    public Canvas deathCanvas, hpCanvas;
+    public TextMeshProUGUI hpText;
     private PlayerController playerController;
     private ShootingController shootingController;
     
@@ -17,13 +20,19 @@ public class PlayerHealthController : HealthController
     {
         playerController = GetComponent<PlayerController>();
         shootingController = GetComponentInChildren<ShootingController>();
+        Time.timeScale = 1;//unpause
+        hpCanvas = Instantiate(hpCanvas);
+        deathCanvas = Instantiate(deathCanvas);
+        deathCanvas.gameObject.SetActive(false);
+        //This is a mess but it works for now
+        hpText = hpCanvas.gameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         alive = true;
         tag = playerTag;
     }
 
     public void updateUI()
     {
-        hpUI.text = "" + Health;
+        hpText.text = "" + Health;
     }
 
     public override void damage(int dmg)
@@ -82,8 +91,10 @@ public class PlayerHealthController : HealthController
         playerController.enabled = false;//Stop movement
         shootingController.enabled = false;
         tag = deadPlayerTag;
+        Time.timeScale = 0;//Pause Game
         //Play death animation
         //show death hud
+        deathCanvas.gameObject.SetActive(true);
         updateUI();
     }
 }
