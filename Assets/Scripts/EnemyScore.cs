@@ -10,6 +10,7 @@ public class EnemyScore : MonoBehaviour
     void Awake()
     {
         scoreController = FindObjectOfType<ScoreController>();
+        Debug.Log(scoreController);
     }
 
     // Update is called once per frame
@@ -19,6 +20,11 @@ public class EnemyScore : MonoBehaviour
     }
     private void OnDestroy()
     {
+        if(scoreController == null)
+        {
+            scoreController = FindObjectOfType<ScoreController>();
+            Debug.Log(FindObjectOfType<ScoreController>());
+        }
         scoreController.updateScore(scoreValue);
 
     }
