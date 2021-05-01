@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class PlayerController : MonoBehaviour
 {//I am notoriously bad at commenting but I am going to try my best
+    private const string speedx = "SpeedX", speedY = "SpeedY", grounded = "Grounded";
     private Transform trans;
     private Rigidbody2D rb;
     private bool IsTouchingGround = false;
-
+    [SerializeField]
+    Animator anim;
     public float MovementSpeed = 100.0f;
     public float MaxSpeed = 16.0f;
     public float JumpForce = 6.5f;
@@ -22,6 +25,7 @@ public class PlayerController : MonoBehaviour
         facingLeft = false; //Start off facing right
         rb = this.GetComponent<Rigidbody2D>();
         trans = GetComponent<Transform>();
+        anim = GetComponent<Animator>();//Animation controller
     }
 
     // Update is called once per frame
@@ -35,14 +39,15 @@ public class PlayerController : MonoBehaviour
     {
         Movement();
         Jump();
+        anim.SetBool(grounded, IsTouchingGround);
     }
 
     void Movement()
     {
+        anim.SetFloat(speedx, Mathf.Abs(Input.GetAxisRaw("Horizontal")));
         // GetAxisRaw checks for WASD and arrow key input; horizontal refers to AD/Left and Right
-        if(Input.GetAxisRaw("Horizontal") == 1)  // 1 is positive x direction
+        if (Input.GetAxisRaw("Horizontal") == 1)  // 1 is positive x direction
         {
-
             if (facingLeft != false)
                 Flip();
             //Tell controller player is moving right
@@ -85,6 +90,7 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
             IsTouchingGround = false;
         }
+        anim.SetFloat(speedY, rb.velocity.y);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

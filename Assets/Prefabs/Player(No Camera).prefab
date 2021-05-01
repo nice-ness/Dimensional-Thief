@@ -15,8 +15,9 @@ GameObject:
   - component: {fileID: 2035909493616022887}
   - component: {fileID: 2035909493616022883}
   - component: {fileID: 2035909493616022877}
+  - component: {fileID: 3862370735042380728}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player(No Camera)
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2bcce9b7f039bc46be7131813b8e7a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   MovementSpeed: 100
   MaxSpeed: 10
   JumpForce: 13
@@ -114,8 +116,6 @@ MonoBehaviour:
   health: 3
   maxHealth: 3
   deathCanvas: {fileID: 8910169891245870032, guid: b71abe655d4e42049a72be56afe763c8,
-    type: 3}
-  winCanvas: {fileID: 6843194990524987738, guid: 7808b366131453d49ae8ff47bb9cc835,
     type: 3}
   hpCanvas: {fileID: 316765772017315353, guid: 12968a9a093b3c5408df5fd74cabb78d, type: 3}
   hpText: {fileID: 0}
@@ -143,7 +143,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.75, y: 1.25}
   m_EdgeRadius: 0
 --- !u!50 &2035909493616022883
 Rigidbody2D:
@@ -180,3 +180,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 3416856401577757807, guid: b79e4ac1465fb834a9eea6e19197da77, type: 3}
   bulletStats: {fileID: 11400000, guid: d3b9894d36c48b1478606e66a37b98bc, type: 2}
+--- !u!95 &3862370735042380728
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035909493616022884}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 23a3fa8048dc52e4383453682a0c30dd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
