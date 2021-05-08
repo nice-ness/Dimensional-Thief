@@ -14,7 +14,12 @@ public class PlayerController : MonoBehaviour
     public float MovementSpeed = 100.0f;
     public float MaxSpeed = 16.0f;
     public float JumpForce = 6.5f;
-    
+    public bool doubleJumpActivated = true;
+    public bool jumpBoostActivated = true;
+    public bool dashPowerActivated = true;
+    private float dashCooldown = 0;
+    private bool doubleJumpReady;
+
     [HideInInspector]
     public bool facingLeft { get; private set; }
 
@@ -39,7 +44,34 @@ public class PlayerController : MonoBehaviour
     {
         Movement();
         Jump();
+        Dash();
         anim.SetBool(grounded, IsTouchingGround);
+    }
+    void Dash()
+    {
+        if (Input.GetKeyDown(KeyCode.R) && dashCooldown == 0 && dashPowerActivated)
+        {
+            if (facingLeft)
+            {
+                rb.AddForce(new Vector2((-MovementSpeed * 6), 0));
+                dashCooldown = 5;
+            }
+            else
+            {
+                rb.AddForce(new Vector2((MovementSpeed * 6), 0));
+                dashCooldown = 5;
+            }
+        }
+        if (dashCooldown > 0)
+        {
+
+            dashCooldown -= Time.deltaTime;
+            if (dashCooldown <= 0)
+            {
+                dashCooldown = 0;
+            }
+
+        }
     }
 
     void Movement()
@@ -77,11 +109,51 @@ public class PlayerController : MonoBehaviour
         else
         {
             // immediately set our x velocity to zero when releasing movement key
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            rb.velocity = new Vector2(rb.velocity.x - (0.75f * Time.deltaTime), rb.velocity.y);
         }
     }
-
     void Jump()
+    {
+        // If we're touching the ground and the jump key is pressed
+        /*if(Input.GetKeyDown(KeyCode.Space) && IsTouchingGround)
+        {
+            // Add a jump force, set touching ground to false
+            rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
+            IsTouchingGround = false;
+        }*/
+        if (!IsTouchingGround && doubleJumpActivated && doubleJumpReady && Input.GetKeyDown(KeyCode.Space))
+        {
+            //Add a smaller jump force, and disable the double jump.
+            if (jumpBoostActivated)
+            {
+                rb.AddForce(Vector2.up * (JumpForce), ForceMode2D.Impulse);
+            }
+            else
+            {
+                rb.AddForce(Vector2.up * (JumpForce * 0.75f), ForceMode2D.Impulse);
+            }
+
+            doubleJumpReady = false;
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && IsTouchingGround)
+        {
+            // Add a jump force, set touching ground to false
+            if (jumpBoostActivated)
+            {
+                rb.AddForce(Vector2.up * (JumpForce * 1.25f), ForceMode2D.Impulse);
+            }
+            else
+            {
+                rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
+            }
+
+            IsTouchingGround = false;
+        }
+        anim.SetFloat(speedY, rb.velocity.y);
+
+    }
+
+    /*void Jump()
     {
         // If we're touching the ground and the jump key is pressed
         if(Input.GetKeyDown(KeyCode.Space) && IsTouchingGround)
@@ -91,7 +163,7 @@ public class PlayerController : MonoBehaviour
             IsTouchingGround = false;
         }
         anim.SetFloat(speedY, rb.velocity.y);
-    }
+    }*/
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -102,6 +174,7 @@ public class PlayerController : MonoBehaviour
         if (Direction.y < 0)
         {
             IsTouchingGround = true;
+            doubleJumpReady = true;
         }
 
         // Useful for detecting top collisions in the future
